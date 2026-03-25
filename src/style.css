@@ -116,6 +116,12 @@ body {
   height: var(--app-height);
 }
 
+main {
+  position: relative;
+  overflow: hidden;
+  height: var(--app-height);
+}
+
 /* Text Formatting */
 
 h1{
