@@ -1,4 +1,4 @@
-import { Rive, EventType, RiveEventType } from "@rive-app/canvas";
+import { Rive } from "@rive-app/canvas";
 import ubjahresbericht25 from "./assets/rive/ubjahresbericht25.riv";
 
 const canvasEl = document.getElementById("canvas");
@@ -37,6 +37,16 @@ const r = new Rive({
       Studenten_Click: {
         trigger: vmi.trigger("Studenten_Click"),
         popUp: "Studenten",
+      },
+
+      Ruedi_Click: {
+        trigger: vmi.trigger("Ruedi_Click"),
+        popUp: "Ruedi",
+      },
+
+      Werkstatt_Click: {
+        trigger: vmi.trigger("Werkstatt_Click"),
+        popUp: "Werkstatt",
       },
     };
 
