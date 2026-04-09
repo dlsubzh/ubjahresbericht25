@@ -54,6 +54,11 @@ const r = new Rive({
       trigger.on(() => handlePopUp(popUp));
     }
 
+    const pointerActive = vmi.boolean("PointerActive");
+    pointerActive.on((value) => {
+      canvasEl.style.cursor = value ? "pointer" : "default";
+    });
+
     r.resizeDrawingSurfaceToCanvas();
     end_loader();
     titleTransition();

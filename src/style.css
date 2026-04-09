@@ -374,6 +374,10 @@ canvas {
   filter: drop-shadow(4px 6px 0px var(--green-dark));
 }
 
+.close-button {
+  cursor: pointer;
+}
+
 .close-button:hover {
   background-color: var(--pink);
   filter: drop-shadow(2px 3px 0px var(--green-dark));
