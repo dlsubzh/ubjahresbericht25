@@ -10,8 +10,12 @@ const r = new Rive({
   autoBind: true,
   artboard: "ArtboardMain",
   stateMachines: "State Machine 1",
+  onStateChange: (event) => {
+    console.log("[Animation]", event.data);
+  },
   onLoad: () => {
     const vmi = r.viewModelInstance;
+    console.log("[VMI]", vmi);
 
     const triggers = {
       OSS_Click: {
@@ -117,11 +121,15 @@ const baseAppHeight = getComputedStyle(document.documentElement)
   .trim();
 
 function handlePopUp(popUpId) {
-  history.pushState({ page: 1 }, "", "");
-
   const popUpElement = document.getElementById(popUpId);
-  const closeButton = popUpElement.querySelector(".close-button");
-  closeButton.addEventListener("click", handleCloseButton);
+  if (!popUpElement) return;
+
+  const openPopup = document.querySelector(".pop-up-container:not(.hidden)");
+  if (openPopup && openPopup !== popUpElement) closePopup(openPopup);
+
+  if (popUpElement.classList.contains("hidden")) {
+    history.pushState({ page: 1 }, "", "");
+  }
 
   setVideo(popUpElement);
   popUpElement.classList.remove("hidden");
@@ -187,6 +195,10 @@ function start_loader() {
 // #endregion
 
 // #region Back Button
+
+document.querySelectorAll(".close-button").forEach((closeButton) => {
+  closeButton.addEventListener("click", handleCloseButton);
+});
 
 history.pushState({ page: 1 }, "", "");
 

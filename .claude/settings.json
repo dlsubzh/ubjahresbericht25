@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npm outdated:*)",
+      "Bash(npm update:*)",
+      "Bash(node -e \"const p=require\\(''./node_modules/@rive-app/canvas/package.json''\\);console.log\\(''@rive-app/canvas:'',p.version\\)\")",
+      "Bash(node -e \"const p=require\\(''./node_modules/vite/package.json''\\);console.log\\(''vite:'',p.version\\)\")"
+    ]
+  }
+}
