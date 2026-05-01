@@ -664,6 +664,102 @@ body:has(.pop-up-container:not(.hidden)) #JB-title {
   opacity: 0;
 }
 
+#article-nav {
+  display: grid;
+  grid-template-columns: 140px 330px;
+  position: fixed;
+  column-gap: 4px;
+  bottom: 5rem;
+  left: 1rem;
+  z-index: 9;
+  transition: grid-template-columns 1s ease;
+}
+
+#article-nav:has(#article-nav-list.hidden) {
+  grid-template-columns: 140px 0px;
+}
+
+#article-nav-list {
+  align-self: flex-end;
+  display: grid;
+  gap: 0.5rem;
+  width: 280px;
+  max-width: 80vw;
+  max-height: 60vh;
+  padding: 20px 25px;
+  color: var(--green-dark);
+  background-color: var(--green-light);
+  border-radius: 22px;
+  border: solid;
+  border-color: var(--green-dark);
+  filter: drop-shadow(4px 6px 0px var(--green-dark));
+  font-family: "Source Sans Pro", sans-serif;
+  z-index: 9;
+  overflow: hidden;
+  opacity: 1;
+  transition:
+    max-height 1s ease 0.2s,
+    padding 0.5s ease,
+    opacity 0.5s ease 0.2s;
+}
+
+#article-nav-list.hidden {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+}
+
+#article-nav-button,
+.article-nav-item {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  color: var(--green-dark);
+  background-color: var(--pink-light);
+  border-radius: 17px;
+  border: solid;
+  border-color: var(--green-dark);
+  filter: drop-shadow(4px 6px 0px var(--green-dark));
+  cursor: pointer;
+}
+
+#article-nav-button {
+  align-self: flex-end;
+  grid-row-start: 1;
+  padding: 10px;
+  width: 120px;
+  height: 45px;
+}
+
+.article-nav-item {
+  width: 100%;
+  font-weight: normal;
+  min-height: 42px;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+#article-nav-button:hover,
+#article-nav-button:focus-visible,
+.article-nav-item:hover,
+.article-nav-item:focus-visible {
+  background-color: var(--pink);
+  filter: drop-shadow(2px 3px 0px var(--green-dark));
+}
+
+#article-nav-button:focus-visible,
+.article-nav-item:focus-visible,
+#impressum-button:focus-visible,
+.close-button:focus-visible {
+  outline: 3px solid var(--yellow-dark);
+  outline-offset: 3px;
+}
+
+#article-nav:has(#article-nav-list:not(.hidden)) #article-nav-button {
+  background-color: var(--pink);
+  filter: drop-shadow(2px 3px 0px var(--green-dark));
+}
+
 #impressum {
   display: grid;
   grid-template-columns: 140px 530px;

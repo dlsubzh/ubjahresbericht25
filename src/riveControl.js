@@ -2,6 +2,7 @@ import { Rive } from "@rive-app/canvas";
 import ubjahresbericht25 from "./assets/rive/ubjahresbericht25.riv";
 
 const canvasEl = document.getElementById("canvas");
+let viewModelInstance;
 
 const r = new Rive({
   src: ubjahresbericht25,
@@ -15,6 +16,7 @@ const r = new Rive({
   },
   onLoad: () => {
     const vmi = r.viewModelInstance;
+    viewModelInstance = vmi;
     console.log("[VMI]", vmi);
 
     const triggers = {
@@ -124,6 +126,8 @@ function handlePopUp(popUpId) {
   const popUpElement = document.getElementById(popUpId);
   if (!popUpElement) return;
 
+  closeArticleNav();
+
   const openPopup = document.querySelector(".pop-up-container:not(.hidden)");
   if (openPopup && openPopup !== popUpElement) closePopup(openPopup);
 
@@ -172,6 +176,26 @@ function setVideo(popUpElement) {
 function stopVideo(popUpElement) {
   const iframe = popUpElement.querySelector("iframe");
   if (iframe) iframe.setAttribute("src", "");
+}
+
+function handleRiveAction(triggerNames, booleanName) {
+  if (!viewModelInstance) return;
+
+  const openPopup = document.querySelector(".pop-up-container:not(.hidden)");
+  if (openPopup) closePopup(openPopup);
+
+  closeArticleNav();
+
+  if (triggerNames) {
+    triggerNames.split(" ").forEach((triggerName) => {
+      viewModelInstance.trigger(triggerName)?.trigger();
+    });
+  }
+
+  if (booleanName) {
+    const booleanInput = viewModelInstance.boolean(booleanName);
+    if (booleanInput) booleanInput.value = true;
+  }
 }
 
 // #endregion
@@ -239,6 +263,37 @@ function titleTransition() {
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("impressum-button").onclick = () =>
     document.getElementById("impressum-list").classList.toggle("hidden");
+
+  const articleNavButton = document.getElementById("article-nav-button");
+  const articleNavList = document.getElementById("article-nav-list");
+
+  articleNavButton.addEventListener("click", () => {
+    const isHidden = articleNavList.classList.toggle("hidden");
+    articleNavList.inert = isHidden;
+    articleNavButton.setAttribute("aria-expanded", String(!isHidden));
+  });
+
+  document.querySelectorAll(".article-nav-item").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.dataset.riveTrigger || button.dataset.riveBoolean) {
+        handleRiveAction(button.dataset.riveTrigger, button.dataset.riveBoolean);
+        return;
+      }
+
+      handlePopUp(button.dataset.popupId);
+    });
+  });
 });
 
 // #endregion
+
+function closeArticleNav() {
+  const articleNavButton = document.getElementById("article-nav-button");
+  const articleNavList = document.getElementById("article-nav-list");
+
+  if (!articleNavButton || !articleNavList) return;
+
+  articleNavList.classList.add("hidden");
+  articleNavList.inert = true;
+  articleNavButton.setAttribute("aria-expanded", "false");
+}
