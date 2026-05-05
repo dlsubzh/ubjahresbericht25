@@ -677,7 +677,7 @@ body:has(.pop-up-container:not(.hidden)) #JB-title {
   column-gap: 4px;
   bottom: 5rem;
   left: 1rem;
-  z-index: 9;
+  z-index: 11;
   transition: grid-template-columns 1s ease;
 }
 
@@ -751,6 +751,7 @@ body:has(.pop-up-container:not(.hidden)) #JB-title {
 .article-nav-item:focus-visible {
   background-color: var(--pink);
   filter: drop-shadow(2px 3px 0px var(--green-dark));
+  cursor: pointer;
 }
 
 #article-nav-button:focus-visible,
@@ -846,11 +847,13 @@ body:has(.pop-up-container:not(.hidden)) #JB-title {
   border: solid;
   border-color: var(--green-dark);
   filter: drop-shadow(4px 6px 0px var(--green-dark));
+  cursor: pointer;
 }
 
 #impressum-button:hover {
   background-color: var(--pink);
   filter: drop-shadow(2px 3px 0px var(--green-dark));
+  cursor: pointer;
 }
 
 #impressum:has(#impressum-list:not(.hidden)) #impressum-button {

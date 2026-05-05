@@ -261,16 +261,21 @@ function titleTransition() {
 // #region Impressum
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("impressum-button").onclick = () =>
-    document.getElementById("impressum-list").classList.toggle("hidden");
-
+  const impressumButton = document.getElementById("impressum-button");
+  const impressumList = document.getElementById("impressum-list");
   const articleNavButton = document.getElementById("article-nav-button");
   const articleNavList = document.getElementById("article-nav-list");
+
+  impressumButton.addEventListener("click", () => {
+    const isHidden = impressumList.classList.toggle("hidden");
+    if (!isHidden) closeArticleNav();
+  });
 
   articleNavButton.addEventListener("click", () => {
     const isHidden = articleNavList.classList.toggle("hidden");
     articleNavList.inert = isHidden;
     articleNavButton.setAttribute("aria-expanded", String(!isHidden));
+    if (!isHidden) closeImpressum();
   });
 
   document.querySelectorAll(".article-nav-item").forEach((button) => {
@@ -296,4 +301,12 @@ function closeArticleNav() {
   articleNavList.classList.add("hidden");
   articleNavList.inert = true;
   articleNavButton.setAttribute("aria-expanded", "false");
+}
+
+function closeImpressum() {
+  const impressumList = document.getElementById("impressum-list");
+
+  if (!impressumList) return;
+
+  impressumList.classList.add("hidden");
 }
